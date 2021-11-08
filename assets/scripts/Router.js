@@ -66,7 +66,7 @@ export class Router {
      *     and URL + hash to history
      *  4. Finally, call the stored function for the given page
      */
-    if (this[page] == null || this[home] == null) {
+    if (this[page] == null) {
       console.error('page/home function not found');
       return;
     }
