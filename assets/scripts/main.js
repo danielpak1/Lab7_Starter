@@ -57,6 +57,15 @@ function initializeServiceWorker() {
    *  TODO - Part 2 Step 1
    *  Initialize the service worker set up in sw.js
    */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        console.log('service workder registration success in: ', registration.scope);
+      }, function(err) {
+        console.log('service worker registration failure in: ', err);
+      });
+    });
+  }
 }
 
 /**
@@ -95,7 +104,7 @@ function createRecipeCards() {
     const recipeCard = document.createElement('recipe-card');
     // Inputs the data for the card. This is just the first recipe in the recipes array,
     // being used as the key for the recipeData object
-    recipeCard.data = recipeData[recipes[0]];
+    recipeCard.data = recipeData[recipes[i]];
 
     // This gets the page name of each of the arrays - which is basically
     // just the filename minus the .json. Since this is the first element
@@ -106,7 +115,7 @@ function createRecipeCards() {
     router.addPage(page, function() {
       document.querySelector('.section--recipe-cards').classList.remove('shown');
       document.querySelector('.section--recipe-expand').classList.add('shown');
-      document.querySelector('recipe-expand').data = recipeData[recipes[0]];
+      document.querySelector('recipe-expand').data = recipeData[recipes[i]];
     });
     if (i >= 3) {
       recipeCard.classList.add('hidden');
